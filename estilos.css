@@ -44,7 +44,7 @@ header {
   display: flex;
   gap: 25px;
   list-style: none;
-  margin: 0 auto; /* POR FIN ARREGLE ESTA CAGADOTA LET'S GO :DDD */
+  margin: 0 auto;
   padding: 0;
 }
 
@@ -356,4 +356,3 @@ footer {
   from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
