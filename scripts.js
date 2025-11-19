@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const seccion = e.target.dataset.seccion;
       cargarSeccion(seccion);
-
       localStorage.setItem("ultimaSeccion", seccion);
     });
   });
@@ -31,22 +30,23 @@ function cargarSeccion(seccion) {
           <h3>Proyectos destacados</h3>
           <div class="projects">
             <div class="project-card">
-              <img src="img/terraria.jpg" alt="Terraria">
-              <h4>Proyecto 1: Terraria</h4>
+              <img src="/static/img/terraria.jpg" alt="Terraria">
+              <h4>Terraria</h4>
               <p>Juego de exploración y construcción pixel art.</p>
               <a href="#" class="btn-small">Ver más</a>
             </div>
             <div class="project-card">
-              <img src="img/rdr2.jpg" alt="Red Dead Redemption 2">
-              <h4>Proyecto 2: Red Dead Redemption 2</h4>
+              <img src="/static/img/rdr2.jpg" alt="Red Dead Redemption 2">
+              <h4>Red Dead Redemption 2</h4>
               <p>Aventura épica en el salvaje oeste.</p>
               <a href="#" class="btn-small">Ver más</a>
             </div>
             <div class="project-card">
-              <img src="img/cs2.jpg" alt="Counter-Strike 2">
-              <h4>Proyecto 3: Counter-Strike 2</h4>
-              <p>El clásico shooter competitivo con gráficos actualizados.</p>
-              <a href="#" class="btn-small">Ver más</a>
+              <img src="/static/img/cs2.jpg" alt="Counter-Strike 2">
+              <h4>Counter-Strike 2</h4>
+              <p>Shooter competitivo de alto nivel.</p>
+              <a href="#" class="btn-
+              small">Ver más</a>
             </div>
           </div>
         </section>
@@ -54,271 +54,87 @@ function cargarSeccion(seccion) {
       break;
 
     case "Explorar":
-      main.innerHTML = `
-        <section class="featured">
-          <h3>Explorar Juegos</h3>
-          <div style="text-align:center;margin-bottom:15px;">
-            <select id="filtro-categoria" class="btn-small">
-              <option value="todos">Todas las categorías</option>
-              <option value="accion">Acción</option>
-              <option value="aventura">Aventura</option>
-              <option value="rpg">RPG</option>
-              <option value="simulacion">Simulación</option>
-            </select>
-          </div>
-
-          <div class="projects" id="lista-juegos">
-            <div class="project-card" data-cat="accion">
-              <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/381210/header.jpg" alt="Dead by Daylight">
-              <h4>Dead by Daylight</h4>
-              <p>Horror multijugador 4v1.</p>
-            </div>
-            <div class="project-card" data-cat="rpg">
-              <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/367520/header.jpg" alt="Hollow Knight">
-              <h4>Hollow Knight</h4>
-              <p>Aventura de acción metroidvania.</p>
-            </div>
-            <div class="project-card" data-cat="simulacion">
-              <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/394360/header.jpg" alt="Hearts of Iron IV">
-              <h4>Hearts of Iron IV</h4>
-              <p>Simulación de estrategia militar.</p>
-            </div>
-          </div>
-        </section>
-      `;
-      const filtro = document.getElementById("filtro-categoria");
-      filtro.addEventListener("change", e => {
-        const valor = e.target.value;
-        document.querySelectorAll(".project-card").forEach(card => {
-          if (valor === "todos" || card.dataset.cat === valor) {
-            card.style.display = "block";
-          } else {
-            card.style.display = "none";
-          }
-        });
-      });
-      break;
-
-    case "Comunidad":
   main.innerHTML = `
     <section class="featured">
-      <h3>Comunidad GameVault — Chats</h3>
+      <h3>Explorar Juegos</h3>
 
-      <div class="comunidad-container">
-        <div class="chat-list" style="flex:0 0 300px;min-width:260px;">
-          <div style="display:flex;gap:8px;margin-bottom:8px;">
-            <select id="filtrar-juego" style="flex:1;padding:8px;border-radius:6px;background:#111;color:#fff;">
-              <option value="todos">Todos los juegos</option>
-            </select>
-            <button id="crear-chat-btn" class="btn-small">Crear chat</button>
-          </div>
-          <div id="lista-chats"></div>
-        </div>
+      <div style="text-align:center;margin-bottom:15px;">
+        <button id="btn-cargar-steam" class="btn-small">Cargar Juegos desde Steam</button>
+      </div>
 
-        <div class="chat-main" style="flex:1;min-width:320px;">
-          <div id="chat-header"></div>
-          <div id="mensajes"></div>
-          <div class="chat-input">
-            <input id="mensaje-input" placeholder="Escribe un mensaje...">
-            <button id="enviar-btn">Enviar</button>
-          </div>
-        </div>
-
-        <div class="chat-sidebar" style="flex:0 0 260px;min-width:220px;">
-          <div style="background:rgba(25,25,25,0.6);padding:12px;border-radius:8px;">
-            <h4>Chats del juego</h4>
-            <div id="chats-por-juego" style="max-height:200px;overflow:auto;"></div>
-          </div>
-        </div>
+      <div class="projects" id="lista-juegos">
+        <p id="steam-status" style="text-align:center;color:#aaa;">Haz clic en "Cargar Juegos desde Steam"</p>
       </div>
     </section>
   `;
 
-  const STORAGE_KEY = "gv_chats_v3";
-  const CURRENT_USER = localStorage.getItem("usuario") || "Anon";
-  let chats = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-  let juegosCache = [];
-  let chatActivoId = null;
+  const contenedor = document.getElementById("lista-juegos");
+  const btn = document.getElementById("btn-cargar-steam");
+  const status = document.getElementById("steam-status");
 
-  const listaChatsEl = document.getElementById("lista-chats");
-  const chatHeaderEl = document.getElementById("chat-header");
-  const mensajesEl = document.getElementById("mensajes");
-  const mensajeInput = document.getElementById("mensaje-input");
-  const enviarBtn = document.getElementById("enviar-btn");
-  const crearChatBtn = document.getElementById("crear-chat-btn");
-  const filtrarJuegoSel = document.getElementById("filtrar-juego");
-  const chatsPorJuegoEl = document.getElementById("chats-por-juego");
-
-  fetch("/api/juegos").then(r => r.json()).then(d => {
-    juegosCache = Array.isArray(d) ? d : [];
-    juegosCache.forEach(j => {
-      const opt = document.createElement("option");
-      opt.value = j.id || j.titulo || j.name || JSON.stringify(j);
-      opt.textContent = j.titulo || j.name || ("Juego " + (j.id || ""));
-      filtrarJuegoSel.appendChild(opt);
-    });
-    renderChats();
-    renderChatsPorJuego();
-  }).catch(()=>{ renderChats(); renderChatsPorJuego(); });
-
-  function guardar() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(chats));
-  }
-
-  function crearChat({title, juegoId=null, members=[CURRENT_USER]}) {
-    const id = "chat_" + Date.now();
-    const chat = { id, title, juegoId, members, messages: [] };
-    chats.unshift(chat);
-    guardar();
-    renderChats();
-    setActivo(id);
-  }
-
-  function renderChats(filterJuego = "todos") {
-    listaChatsEl.innerHTML = "";
-    const lista = chats.filter(c => filterJuego === "todos" ? true : String(c.juegoId) === String(filterJuego));
-    lista.forEach(c => {
-      const div = document.createElement("div");
-      div.className = "chat-card";
-      div.innerHTML = `<strong>${c.title}</strong><div style="color:#aaa;font-size:12px;margin-top:6px;">Mensajes: ${c.messages.length}</div>`;
-      div.addEventListener("click", ()=> setActivo(c.id));
-      listaChatsEl.appendChild(div);
-    });
-  }
-
-  function renderChatsPorJuego() {
-    chatsPorJuegoEl.innerHTML = "";
-    const juegosMap = {};
-    chats.forEach(c => {
-      if (c.juegoId) {
-        juegosMap[c.juegoId] = juegosMap[c.juegoId] || [];
-        juegosMap[c.juegoId].push(c);
+  btn.addEventListener("click", async () => {
+    status.textContent = "Cargando juegos…";
+    try {
+      const res = await fetch("/api/juegos_steam");
+      if (!res.ok) {
+        throw new Error("Error al obtener datos de Steam: " + res.status);
       }
-    });
-    Object.entries(juegosMap).forEach(([jid, arr])=>{
-      const cont = document.createElement("div");
-      const game = juegosCache.find(g=>String(g.id)===String(jid));
-      cont.innerHTML = `<div style="font-weight:700;color:#ff4655;margin-bottom:6px;">${game ? (game.titulo||game.name) : ("Juego "+jid)}</div>`;
-      arr.forEach(c=>{
-        const a = document.createElement("div");
-        a.style.fontSize = "13px";
-        a.style.cursor = "pointer";
-        a.style.padding = "6px 0";
-        a.textContent = c.title + " ("+c.messages.length+")";
-        a.addEventListener("click", ()=> setActivo(c.id));
-        cont.appendChild(a);
+      const data = await res.json();
+      const juegos = data.juegos;
+
+      if (!Array.isArray(juegos) || juegos.length === 0) {
+        status.textContent = "No se encontraron juegos de Steam.";
+        return;
+      }
+
+      contenedor.innerHTML = "";
+      juegos.forEach(j => {
+        const card = document.createElement("div");
+        card.classList.add("project-card");
+        card.innerHTML = `
+          <img src="${j.imagen}" alt="${j.nombre}" onerror="this.src='/static/img/default.jpg'">
+          <h4>${j.nombre}</h4>
+          <a href="https://store.steampowered.com/app/${j.id}" target="_blank" class="btn-small">Ver en Steam</a>
+        `;
+        contenedor.appendChild(card);
       });
-      chatsPorJuegoEl.appendChild(cont);
-    });
-  }
-
-  function setActivo(id) {
-    chatActivoId = id;
-    const chat = chats.find(c=>c.id===id);
-    if (!chat) return;
-    chatHeaderEl.textContent = chat.title;
-    renderMensajes(chat);
-  }
-
-  function renderMensajes(chat) {
-    mensajesEl.innerHTML = "";
-    chat.messages.forEach(m=>{
-      const d = document.createElement("div");
-      d.className = "mensaje";
-      d.innerHTML = `<strong>${m.sender}</strong> <small>${new Date(m.time).toLocaleTimeString()}</small><div>${m.text}</div>`;
-      mensajesEl.appendChild(d);
-    });
-    mensajesEl.scrollTop = mensajesEl.scrollHeight;
-  }
-
-  function enviarMensaje() {
-    const text = mensajeInput.value.trim();
-    if (!text || !chatActivoId) return;
-    const chat = chats.find(c=>c.id===chatActivoId);
-    if (!chat) return;
-    const msg = { sender: CURRENT_USER, text, time: new Date().toISOString() };
-    chat.messages.push(msg);
-    guardar();
-    renderMensajes(chat);
-    mensajeInput.value = "";
-    renderChats();
-  }
-
-  enviarBtn.addEventListener("click", enviarMensaje);
-  mensajeInput.addEventListener("keydown", e=> { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); enviarMensaje(); } });
-
-  crearChatBtn.addEventListener("click", ()=>{
-    const title = prompt("Nombre del chat:");
-    if (!title) return;
-    crearChat({title});
+    } catch (error) {
+      console.error("Error cargando juegos desde Steam:", error);
+      status.textContent = "Error cargando juegos. Revisa la consola.";
+    }
   });
 
-  if (!chats.length) {
-    crearChat({ title: "General", members: [CURRENT_USER] });
-    crearChat({ title: "Juegos", members: [CURRENT_USER] });
-  } else {
-    setActivo(chats[0].id);
-  }
-
   break;
+
+    case "Comunidad":
+      main.innerHTML = `
+        <section class="featured">
+          <h3>Comunidad GameVault</h3>
+          <p style="text-align:center;color:#ccc;">Publica tus ideas, proyectos o capturas.</p>
+          
+          <div style="max-width:500px;margin:20px auto;text-align:center;">
+            <textarea id="post-text" placeholder="¿Qué estás pensando?" style="width:100%;height:80px;border-radius:8px;padding:10px;"></textarea>
+            <br>
+            <button id="publicar-btn" class="btn-small">Publicar</button>
+          </div>
+
+          <div id="muro-posts" style="max-width:600px;margin:auto;"></div>
+        </section>
+      `;
+      break;
 
     case "Perfil":
       main.innerHTML = `
         <section class="featured">
-        <section class="featured">
-        <div class="banner-container">
-        <img id="banner-img" 
-         src="${localStorage.getItem("bannerImg") || "https://i.imgur.com/BFq0O3Z.jpeg"}" 
-         alt="Banner de perfil" 
-         class="perfil-banner">
-        <div class="banner-overlay">
-        <a href="#" class="btn-small" id="editar-banner-btn">Cambiar banner</a>
-        <input type="file" id="banner-input" accept="image/*" style="display:none;">
-        </div>
-        </div>
+          <h3>Tu Perfil</h3>
+          <div class="project-card" style="max-width:400px;margin:auto;text-align:center;">
+            <img id="avatar-img" src="${localStorage.getItem("avatarImg") || "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"}"
+                 alt="Avatar perfil" style="width:120px;height:120px;border-radius:50%;">
 
-          <div class="profile-container">
-            <div class="profile-left">
-              <div class="profile-card">
-                <img id="avatar-img" src="${localStorage.getItem("avatarImg") || "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"}" 
-                     alt="Avatar perfil" class="perfil-avatar">
-                <h4 id="perfil-usuario">Usuario: ${localStorage.getItem("usuario") || "Juan"}</h4>
-                <p id="perfil-bio">${localStorage.getItem("bio") || "Jugador apasionado. Escribe aquí una breve biografía."}</p>
-                <p id="perfil-detalles">Miembro desde ${localStorage.getItem("miembroDesde") || "2025"}</p>
-
-                <div class="profile-actions">
-                  <input type="file" id="file-input" accept="image/*" style="display:none;">
-                  <a href="#" class="btn-small" id="editar-btn">Cambiar avatar</a>
-                  <a href="#" class="btn-small" id="editar-bio-btn">Editar bio</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="profile-right">
-              <h3>Estadísticas de videojuegos</h3>
-
-              <div class="stats-grid">
-                <div class="stat-card">
-                  <div class="stat-title">Juegos subidos</div>
-                  <div class="stat-value" id="stat-juegos">0</div>
-                </div>
-                <div class="stat-card">
-                  <div class="stat-title">Reseñas</div>
-                  <div class="stat-value" id="stat-resenas">0</div>
-                </div>
-                <div class="stat-card">
-                  <div class="stat-title">Puntuación media</div>
-                  <div class="stat-value" id="stat-media">0.0</div>
-                </div>
-                <div class="stat-card">
-                  <div class="stat-title">Género favorito</div>
-                  <div class="stat-value" id="stat-genero">—</div>
-                </div>
-              </div>
-
-              <h4 style="margin-top:18px;">Juegos recientes</h4>
-              <div id="lista-reciente" class="projects" style="margin-top:10px;"></div>
-            </div>
+            <h4>Usuario: ${localStorage.getItem("usuario") || "Invitado"}</h4>
+            <p>Nivel 12 | 34 juegos subidos</p>
+            <input type="file" id="file-input" accept="image/*" style="display:none;">
+            <a href="#" class="btn-small" id="editar-btn">Editar Perfil</a>
           </div>
         </section>
       `;
@@ -327,10 +143,7 @@ function cargarSeccion(seccion) {
       const fileInput = document.getElementById("file-input");
       const avatarImg = document.getElementById("avatar-img");
 
-      editarBtn.addEventListener("click", e => {
-        e.preventDefault();
-        fileInput.click();
-      });
+      editarBtn.addEventListener("click", e => { e.preventDefault(); fileInput.click(); });
 
       fileInput.addEventListener("change", event => {
         const archivo = event.target.files[0];
@@ -344,77 +157,32 @@ function cargarSeccion(seccion) {
           lector.readAsDataURL(archivo);
         }
       });
+      break;
 
-      const editarBioBtn = document.getElementById("editar-bio-btn");
-      editarBioBtn.addEventListener("click", e => {
-        e.preventDefault();
-        const current = document.getElementById("perfil-bio").textContent;
-        const nuevo = prompt("Escribe tu nueva biografía:", current) || current;
-        document.getElementById("perfil-bio").textContent = nuevo;
-        localStorage.setItem("bio", nuevo);
-      });
-       const cargarEstadisticas = () => {
-        const juegos = JSON.parse(localStorage.getItem("misJuegos") || "[]");
-        const resenas = JSON.parse(localStorage.getItem("misResenas") || "[]");
+    case "Subir":
+      main.innerHTML = `
+        <section class="upload-container">
+          <h2 class="upload-title">Subir un Juego</h2>
+          <p class="upload-subtitle">Comparte tu creación con la comunidad</p>
 
-        document.getElementById("stat-juegos").textContent = juegos.length;
-        document.getElementById("stat-resenas").textContent = resenas.length;
+          <div class="upload-form">
 
-        const media = resenas.length
-          ? (resenas.reduce((acc, r) => acc + (r.puntuacion || r.rating || 0), 0) / resenas.length).toFixed(1)
-          : "0.0";
-        document.getElementById("stat-media").textContent = media;
+            <label class="upload-label">Nombre del juego</label>
+            <input type="text" id="juego-nombre" class="upload-input">
 
-        
-        const genero = (() => {
-          const counts = {};
-          juegos.forEach(j => {
-            const g = j.genero || j.category || "Desconocido";
-            counts[g] = (counts[g] || 0) + 1;
-          });
-          const entries = Object.entries(counts);
-          if (!entries.length) return "—";
-          entries.sort((a, b) => b[1] - a[1]);
-          return entries[0][0];
-        })();
-        document.getElementById("stat-genero").textContent = genero;
+            <label class="upload-label">Descripción</label>
+            <textarea id="juego-desc" class="upload-textarea"></textarea>
 
-        const lista = document.getElementById("lista-reciente");
-        lista.innerHTML = "";
-        (juegos.slice(-6).reverse() || []).forEach(j => {
-          const div = document.createElement("div");
-          div.classList.add("project-card");
-          div.style.textAlign = "left";
-          div.innerHTML = `
-            <strong>${j.titulo || j.name || "Juego sin título"}</strong>
-            <p style="color:#ccc;margin:6px 0 0;font-size:13px;">${j.descripcion || j.desc || ""}</p>
-          `;
-          lista.appendChild(div);
-        });
-      };
-const bannerBtn = document.getElementById("editar-banner-btn");
-const bannerInput = document.getElementById("banner-input");
-const bannerImg = document.getElementById("banner-img");
+            <label class="upload-label">Imagen de portada</label>
+            <input type="file" id="juego-img" class="upload-input" accept="image/*">
 
-bannerBtn.addEventListener("click", e => {
-  e.preventDefault();
-  bannerInput.click();
-});
+            <label class="upload-label">Archivo del juego</label>
+            <input type="file" id="juego-archivo" class="upload-input" accept=".zip,.rar">
 
-bannerInput.addEventListener("change", event => {
-  const archivo = event.target.files[0];
-  if (archivo) {
-    const lector = new FileReader();
-    lector.onload = e => {
-      const dataURL = e.target.result;
-      bannerImg.src = dataURL;
-      localStorage.setItem("bannerImg", dataURL);
-    };
-    lector.readAsDataURL(archivo);
-  }
-});
-
-      cargarEstadisticas();
+            <button id="btn-subir-juego" class="upload-btn">Subir Juego</button>
+          </div>
+        </section>
+      `;
       break;
   }
 }
