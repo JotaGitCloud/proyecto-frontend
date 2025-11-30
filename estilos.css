@@ -1,4 +1,6 @@
-
+/* --------------------
+   GLOBAL
+--------------------- */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -6,6 +8,9 @@ body {
   color: #f0f0f0;
 }
 
+/* --------------------
+   HEADER / NAVBAR
+--------------------- */
 header {
   background-color: #151515;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
@@ -26,10 +31,23 @@ header {
   text-transform: uppercase;
 }
 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 30px; 
+}
+
 .nav-links {
-  list-style: none;
   display: flex;
   gap: 25px;
+  list-style: none;
   margin: 0;
   padding: 0;
 }
@@ -46,6 +64,10 @@ header {
   transform: translateY(-2px);
 }
 
+/* --------------------
+   HERO
+--------------------- */
+
 .hero {
   height: 70vh;
   background: linear-gradient(
@@ -60,7 +82,6 @@ header {
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: #f0f0f0;
   padding: 0 20px;
 }
 
@@ -77,6 +98,7 @@ header {
   color: #ccc;
 }
 
+/* BUTTONS */
 .btn {
   display: inline-block;
   margin-top: 25px;
@@ -86,16 +108,15 @@ header {
   border-radius: 6px;
   text-decoration: none;
   font-weight: bold;
-  letter-spacing: 0.5px;
-  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .btn:hover {
   background-color: #ff6372;
   transform: translateY(-3px);
-  box-shadow: 0 0 15px rgba(255, 70, 85, 0.4);
 }
 
+/* Small button */
 .btn-small {
   background-color: #222;
   color: #ff4655;
@@ -111,274 +132,180 @@ header {
   color: white;
 }
 
+/* --------------------
+   FEATURED / PROJECTS
+--------------------- */
+
 .featured {
-  background: linear-gradient(135deg, #0f0f1a, #1a0d0f);
-  color: #fff;
-  padding: 0;
-  border-radius: 16px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.6);
-  font-family: 'Orbitron', sans-serif;
-  overflow: hidden;
+  padding: 60px 40px;
+  background-color: #111;
 }
 
-.banner-container {
-  position: relative;
-  width: 100%;
-  height: 220px;
-  overflow: hidden;
-  border-bottom: 2px solid #ff4655;
-}
-
-.perfil-banner {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.8);
-  transition: transform 0.4s ease;
-}
-
-.banner-container:hover .perfil-banner {
-  transform: scale(1.03);
-}
-
-.banner-overlay {
-  position: absolute;
-  bottom: 10px;
-  right: 15px;
-}
-
-.profile-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 40px;
-}
-
-.profile-left, .profile-right {
-  background: rgba(25, 25, 30, 0.8);
-  border-radius: 16px;
-  padding: 25px;
-  box-shadow: 0 0 20px rgba(255, 70, 85, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.profile-left:hover, .profile-right:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 30px rgba(255, 70, 85, 0.25);
-}
-
-.profile-card {
+.featured h3 {
+  font-size: 28px;
   text-align: center;
-}
-
-.perfil-avatar {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #ff4655;
-  box-shadow: 0 0 15px rgba(255, 70, 85, 0.6);
-  transition: transform 0.3s ease;
-}
-
-.perfil-avatar:hover {
-  transform: scale(1.05);
-}
-
-#perfil-usuario {
-  font-size: 20px;
-  margin: 12px 0 4px;
   color: #ff4655;
-  text-shadow: 0 0 6px rgba(255, 70, 85, 0.8);
+  margin-bottom: 30px;
 }
 
-#perfil-bio {
-  font-size: 14px;
-  color: #ccc;
-  margin-bottom: 8px;
-}
-
-#perfil-detalles {
-  font-size: 13px;
-  color: #999;
-}
-
-.profile-actions, .banner-overlay {
-  margin-top: 12px;
-}
-
-.btn-small {
-  display: inline-block;
-  background: linear-gradient(90deg, #ff4655, rgba(255, 70, 85, 0.7));
-  color: #fff;
-  font-weight: bold;
-  padding: 8px 14px;
-  border-radius: 8px;
-  margin: 4px;
-  text-decoration: none;
-  text-shadow: 0 0 6px rgba(255,255,255,0.3);
-  transition: all 0.2s ease;
-}
-
-.btn-small:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255, 70, 85, 0.7);
-}
-
-.profile-right h3 {
-  color: #ff4655;
-  text-shadow: 0 0 6px rgba(255, 70, 85, 0.8);
-  margin-bottom: 16px;
-}
-
-.stats-grid {
+.projects {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
 }
 
-.stat-card {
-  background: rgba(255, 70, 85, 0.1);
-  border: 1px solid rgba(255, 70, 85, 0.3);
-  border-radius: 10px;
-  padding: 14px;
-  text-align: center;
-  transition: background 0.3s;
-}
-
-.stat-card:hover {
-  background: rgba(255, 70, 85, 0.2);
-}
-
-.stat-title {
-  font-size: 13px;
-  color: #aaa;
-}
-
-.stat-value {
-  font-size: 24px;
-  color: #ff4655;
-  font-weight: bold;
-  margin-top: 5px;
-  text-shadow: 0 0 8px rgba(255, 70, 85, 0.8);
-}
-
-#lista-reciente {
+/* ESTILO QUE FALTABA → para la sección de juegos */
+#lista-juegos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
-  margin-top: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  padding: 20px;
 }
 
+/* Tarjetas */
 .project-card {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px;
-  padding: 10px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .project-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 15px rgba(255, 70, 85, 0.25);
+  transform: translateY(-8px);
+  box-shadow: 0 0 20px rgba(255, 70, 85, 0.2);
 }
 
-/* === COMUNIDAD === */
-.comunidad-container {
+.project-card h4 {
+  color: #ff4655;
+  margin-top: 15px;
+  font-size: 20px;
+}
+
+.project-card p {
+  color: #ccc;
+  font-size: 15px;
+}
+
+/* --------------------
+   FOOTER
+--------------------- */
+
+footer {
+  background-color: #151515;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* --------------------
+   LOGIN / REGISTRO
+--------------------- */
+
+.auth-body {
+  background: linear-gradient(145deg, #0e0e0e, #151515);
+  min-height: 100vh; 
   display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-  padding: 30px;
-  background: linear-gradient(135deg, #0f0f1a, #1a0d0f);
-  color: #fff;
-  border-radius: 16px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
 }
 
-.chat-list, .chat-main, .chat-sidebar {
-  background: rgba(25, 25, 30, 0.8);
+.auth-container {
+  background-color: #1a1a1a;
+  padding: 40px;
   border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 0 20px rgba(255, 70, 85, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 25px rgba(255, 70, 85, 0.3);
+  width: 350px;
+  text-align: center;
 }
 
-.chat-list:hover, .chat-main:hover, .chat-sidebar:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 30px rgba(255, 70, 85, 0.25);
+.auth-container h2 {
+  color: #ff4655;
+  margin-bottom: 20px;
 }
 
-.chat-card {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
+.auth-container input {
+  width: 100%;
   padding: 10px;
-  margin-bottom: 8px;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
+  margin: 10px 0;
+  border-radius: 6px;
+  background-color: #2a2a2a;
+  border: none;
+  color: white;
 }
 
-.chat-card:hover {
-  background: rgba(255, 70, 85, 0.1);
+.btn-logout {
+  background-color: transparent;
+  color: #ff4655;
+  border: 1px solid #ff4655;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-logout:hover {
+  background-color: #ff4655;
+  color: white;
   transform: translateY(-2px);
 }
 
-#chat-header {
-  font-weight: bold;
-  color: #ff4655;
-  text-shadow: 0 0 6px rgba(255, 70, 85, 0.7);
-  font-size: 18px;
-  margin-bottom: 6px;
+.explorar-container {
+    padding: 20px;
 }
 
-#mensajes {
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 10px;
-  padding: 10px;
-  max-height: 400px;
-  overflow-y: auto;
+.titulo-seccion {
+    font-size: 32px;
+    margin-bottom: 20px;
 }
 
-.mensaje {
-  margin-bottom: 10px;
+.subtitulo {
+    font-size: 24px;
+    margin: 20px 0 10px;
+    color: #ff4655;
 }
 
-.mensaje strong {
-  color: #ff4655;
+.grid-juegos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
 }
 
-.mensaje small {
-  color: #aaa;
-  font-size: 11px;
+.game-card {
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(255, 70, 85, .2);
+    transition: transform .2s ease;
 }
 
-.chat-input {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
+.game-card:hover {
+    transform: scale(1.05);
 }
 
-.chat-input input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  background: #0b0b0b;
-  color: #fff;
-  border: 1px solid #222;
+.game-card img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
-.chat-input button {
-  background: linear-gradient(90deg, #ff4655, rgba(255, 70, 85, 0.7));
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 14px;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+.game-card h4 {
+    margin-top: 10px;
+    font-size: 18px;
 }
 
-.chat-input button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255, 70, 85, 0.5);
+.precio {
+    color: #37d67a;
+    margin-top: 8px;
+}
+
+.division {
+    margin: 40px 0;
+    border: 0;
+    border-top: 1px solid #333;
 }
