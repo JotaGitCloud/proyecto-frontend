@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro - GameVault</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+
+<body class="auth-body">
+  <div class="auth-container">
+
+    <h2>Crear cuenta</h2>
+
+    {% if error %}
+      <p style="color:#ff4655; font-weight:bold;">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" autocomplete="off">
+      <input type="text" 
+             name="nombre" 
+             placeholder="Nombre completo" 
+             required>
+
+      <input type="email" 
+             name="email" 
+             placeholder="Correo electrónico" 
+             required>
+
+      <input type="password" 
+             name="contrasena" 
+             placeholder="Contraseña" 
+             required>
+
+      <button type="submit" class="btn">Registrarme</button>
+    </form>
+
+    <p style="margin-top:15px;">
+      ¿Ya tienes cuenta? 
+      <a href="{{ url_for('login') }}" style="color:#ff4655;">Inicia sesión</a>
+    </p>
+  </div>
+</body>
+</html>
