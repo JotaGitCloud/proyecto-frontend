@@ -6,6 +6,120 @@ body {
   font-family: 'Segoe UI', Tahoma, sans-serif;
   background-color: #0e0e0e;
   color: #f0f0f0;
+  line-height: 1.5;
+}
+
+/* --------------------
+   BARRAS DE DESPLAZAMIENTO PERSONALIZADAS
+--------------------- */
+/* Para navegadores WebKit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #151515;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 6px;
+  border: 2px solid #151515;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff4655;
+}
+
+::-webkit-scrollbar-corner {
+  background: #151515;
+}
+
+/* Para Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #333 #151515;
+}
+
+/* --------------------
+   ESTILOS GENERALES PARA INPUTS Y TEXTAREAS
+--------------------- */
+input, textarea, select {
+  background-color: #222 !important;
+  border: 1px solid #333 !important;
+  color: #f0f0f0 !important;
+  border-radius: 8px;
+  padding: 12px 15px;
+  font-size: 15px;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus, textarea:focus, select:focus {
+  border: 1px solid #ff4655 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(255, 70, 85, 0.2) !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #777 !important;
+  opacity: 1;
+}
+
+/* BARRAS DE DESPLAZAMIENTO ESPECÍFICAS PARA TEXTAREAS Y SELECTS */
+textarea::-webkit-scrollbar {
+  width: 10px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 4px;
+  margin: 4px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+  border: 2px solid #1a1a1a;
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+  background: #ff4655;
+}
+
+/* Para los selects desplegables (dropdowns) */
+select option {
+  background-color: #222;
+  color: #f0f0f0;
+  padding: 10px;
+}
+
+select option:hover,
+select option:focus,
+select option:checked {
+  background-color: #ff4655 !important;
+  color: white !important;
+}
+
+/* Para el dropdown del select (no la barra lateral) */
+select::-webkit-scrollbar {
+  width: 8px;
+}
+
+select::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 4px;
+}
+
+select::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+}
+
+select::-webkit-scrollbar-thumb:hover {
+  background: #ff4655;
 }
 
 /* --------------------
@@ -57,6 +171,7 @@ header {
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s, transform 0.2s;
+  padding: 5px 0;
 }
 
 .nav-links a:hover {
@@ -67,12 +182,11 @@ header {
 /* --------------------
    HERO
 --------------------- */
-
 .hero {
   height: 70vh;
   background: linear-gradient(
-      rgba(14, 14, 14, 0.85),
-      rgba(14, 14, 14, 0.85)
+      rgba(14, 14, 14, 0.9),
+      rgba(14, 14, 14, 0.8)
     ),
     url("https://images.unsplash.com/photo-1605902711622-cfb43c4437b5?auto=format&fit=crop&w=1500&q=80");
   background-size: cover;
@@ -96,6 +210,7 @@ header {
   font-size: 18px;
   max-width: 700px;
   color: #ccc;
+  margin-bottom: 10px;
 }
 
 /* BUTTONS */
@@ -108,12 +223,15 @@ header {
   border-radius: 6px;
   text-decoration: none;
   font-weight: bold;
-  transition: background-color 0.3s, transform 0.3s;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  border: none;
+  cursor: pointer;
 }
 
 .btn:hover {
   background-color: #ff6372;
   transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(255, 70, 85, 0.3);
 }
 
 /* Small button */
@@ -125,6 +243,7 @@ header {
   text-decoration: none;
   font-weight: 500;
   transition: background 0.3s, color 0.3s;
+  border: 1px solid #333;
 }
 
 .btn-small:hover {
@@ -135,7 +254,6 @@ header {
 /* --------------------
    FEATURED / PROJECTS
 --------------------- */
-
 .featured {
   padding: 60px 40px;
   background-color: #111;
@@ -146,6 +264,20 @@ header {
   text-align: center;
   color: #ff4655;
   margin-bottom: 30px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.featured h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: #ff4655;
+  border-radius: 2px;
 }
 
 .projects {
@@ -165,44 +297,51 @@ header {
 /* Tarjetas */
 .project-card {
   background-color: #1a1a1a;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 20px;
   text-align: center;
   transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid #252525;
 }
 
 .project-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 0 20px rgba(255, 70, 85, 0.2);
+  box-shadow: 0 10px 20px rgba(255, 70, 85, 0.2);
+  border-color: #ff4655;
 }
 
 .project-card h4 {
   color: #ff4655;
   margin-top: 15px;
   font-size: 20px;
+  margin-bottom: 10px;
 }
 
 .project-card p {
   color: #ccc;
   font-size: 15px;
+  margin-bottom: 15px;
 }
 
 /* --------------------
    FOOTER
 --------------------- */
-
 footer {
   background-color: #151515;
   text-align: center;
-  padding: 20px;
+  padding: 25px;
   font-size: 14px;
   color: #aaa;
+  border-top: 1px solid #252525;
+}
+
+footer p {
+  margin: 5px 0;
 }
 
 /* --------------------
    LOGIN / REGISTRO
 --------------------- */
-
 .auth-body {
   background: linear-gradient(145deg, #0e0e0e, #151515);
   min-height: 100vh; 
@@ -218,33 +357,26 @@ footer {
   box-shadow: 0 0 25px rgba(255, 70, 85, 0.3);
   width: 350px;
   text-align: center;
+  border: 1px solid #252525;
 }
 
 .auth-container h2 {
   color: #ff4655;
-  margin-bottom: 20px;
-}
-
-.auth-container input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 6px;
-  background-color: #2a2a2a;
-  border: none;
-  color: white;
+  margin-bottom: 25px;
+  font-size: 28px;
 }
 
 .btn-logout {
   background-color: transparent;
   color: #ff4655;
   border: 1px solid #ff4655;
-  padding: 6px 12px;
+  padding: 8px 16px;
   border-radius: 6px;
   text-decoration: none;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
   transition: 0.3s;
+  display: inline-block;
 }
 
 .btn-logout:hover {
@@ -253,59 +385,509 @@ footer {
   transform: translateY(-2px);
 }
 
+/* --------------------
+   EXPLORAR
+--------------------- */
 .explorar-container {
-    padding: 20px;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .titulo-seccion {
-    font-size: 32px;
-    margin-bottom: 20px;
+  font-size: 32px;
+  margin-bottom: 25px;
+  color: #ff4655;
+  text-align: center;
+}
+
+/* BARRA DE BÚSQUEDA en Explorar */
+.barra-busqueda {
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  border: 1px solid #252525;
+}
+
+.barra-busqueda h3 {
+  color: #ff4655;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.busqueda-input {
+  display: flex;
+  gap: 10px;
+}
+
+.busqueda-input input {
+  flex: 1;
+  background-color: #222;
+  border: 1px solid #333;
+  color: #f0f0f0;
+  padding: 12px 15px;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.busqueda-input input:focus {
+  border-color: #ff4655;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 70, 85, 0.2);
+}
+
+.busqueda-input button {
+  background-color: #ff4655;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.busqueda-input button:hover {
+  background-color: #ff6372;
+}
+
+/* FILTROS Y CATEGORÍAS en Explorar */
+.filtros-categorias {
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  border: 1px solid #252525;
+}
+
+.filtros-categorias h3 {
+  color: #ff4655;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.categorias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.categoria-item {
+  background-color: #222;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  transition: all 0.3s;
+  cursor: pointer;
+  text-align: center;
+}
+
+.categoria-item:hover {
+  background-color: #2a2a2a;
+  border-color: #ff4655;
+  transform: translateY(-3px);
+}
+
+.categoria-item.activa {
+  background-color: #ff4655;
+  color: white;
+  border-color: #ff4655;
+}
+
+/* Selects (desplegables) en Explorar - CORREGIDOS */
+.filtro-select {
+  width: 100%;
+  margin: 10px 0;
+  background-color: #222;
+  border: 1px solid #333;
+  color: #f0f0f0;
+  padding: 12px 15px;
+  border-radius: 8px;
+  font-size: 15px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23ff4655' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 12px;
+  padding-right: 40px;
+}
+
+.filtro-select:focus {
+  border-color: #ff4655;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 70, 85, 0.2);
+}
+
+/* Estilo para el dropdown del select */
+.filtro-select option {
+  background-color: #222;
+  color: #f0f0f0;
+  padding: 10px;
+}
+
+.filtro-select option:hover,
+.filtro-select option:focus,
+.filtro-select option:checked {
+  background-color: #ff4655;
+  color: white;
 }
 
 .subtitulo {
-    font-size: 24px;
-    margin: 20px 0 10px;
-    color: #ff4655;
+  font-size: 24px;
+  margin: 30px 0 15px;
+  color: #ff4655;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #333;
 }
 
 .grid-juegos {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 25px;
 }
 
 .game-card {
-    background: #1a1a1a;
-    border-radius: 12px;
-    padding: 12px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(255, 70, 85, .2);
-    transition: transform .2s ease;
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #252525;
+  overflow: hidden;
 }
 
 .game-card:hover {
-    transform: scale(1.05);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(255, 70, 85, 0.25);
+  border-color: #ff4655;
 }
 
 .game-card img {
-    width: 100%;
-    height: 170px;
-    object-fit: cover;
-    border-radius: 10px;
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
 }
 
 .game-card h4 {
-    margin-top: 10px;
-    font-size: 18px;
+  margin-top: 10px;
+  font-size: 18px;
+  color: #f0f0f0;
+  margin-bottom: 8px;
 }
 
 .precio {
-    color: #37d67a;
-    margin-top: 8px;
+  color: #37d67a;
+  margin-top: 8px;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .division {
-    margin: 40px 0;
-    border: 0;
-    border-top: 1px solid #333;
+  margin: 40px 0;
+  border: 0;
+  border-top: 1px solid #333;
+}
+
+/* --------------------
+   PERFIL
+--------------------- */
+.perfil-card {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  max-width: 750px;
+  margin: 30px auto;
+  border: 1px solid #252525;
+}
+
+.perfil-avatar {
+  flex-shrink: 0;
+}
+
+.perfil-avatar img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #ff4655;
+  object-fit: cover;
+}
+
+.avatar-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: #222;
+  color: #ff4655;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  border: 1px solid #333;
+  transition: all 0.3s;
+}
+
+.avatar-btn:hover {
+  background: #ff4655;
+  color: white;
+}
+
+.avatar-btn input {
+  display: none;
+}
+
+.perfil-info {
+  flex-grow: 1;
+}
+
+.perfil-info h2 {
+  color: #ff4655;
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.perfil-info p {
+  color: #ccc;
+  margin-bottom: 15px;
+}
+
+.perfil-stats {
+  margin: 25px auto 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  background: #151515;
+  padding: 18px;
+  border-radius: 10px;
+  width: 150px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border: 1px solid #252525;
+}
+
+.stat-box h4 {
+  color: #ff4655;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.stat-box p {
+  color: #f0f0f0;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* --------------------
+   COMUNIDAD
+--------------------- */
+.community-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+  margin-top: 25px;
+  padding: 0 20px;
+}
+
+.community-grid .project-card {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border: 1px solid #252525;
+}
+
+.c-sub {
+  text-align: center;
+  color: #ccc;
+  margin-bottom: 30px;
+}
+
+/* --------------------
+   SUBIR JUEGOS
+--------------------- */
+.upload-box {
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 700px;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  border: 1px solid #252525;
+}
+
+.upload-box h2 {
+  color: #ff4655;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+/* Campos específicos de Subir Juegos */
+.campo-subida {
+  margin-bottom: 15px;
+}
+
+.campo-subida label {
+  display: block;
+  color: #ff4655;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.campo-subida input[type="text"],
+.campo-subida input[type="number"],
+.campo-subida input[type="url"],
+.campo-subida textarea,
+.campo-subida select {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #222;
+  color: #f0f0f0;
+  font-size: 15px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.campo-subida input[type="text"]:focus,
+.campo-subida input[type="number"]:focus,
+.campo-subida input[type="url"]:focus,
+.campo-subida textarea:focus,
+.campo-subida select:focus {
+  border: 1px solid #ff4655;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 70, 85, 0.2);
+}
+
+/* Textarea específicamente para descripción */
+.campo-subida textarea.descripcion-juego {
+  min-height: 150px;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+/* Select personalizado para Subir Juegos */
+.campo-subida select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23ff4655' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 12px;
+  padding-right: 40px;
+}
+
+.campo-subida select option {
+  background-color: #222;
+  color: #f0f0f0;
+  padding: 12px;
+}
+
+.campo-subida select option:hover,
+.campo-subida select option:focus,
+.campo-subida select option:checked {
+  background-color: #ff4655 !important;
+  color: white !important;
+}
+
+.upload-grid {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.upload-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 12px 15px;
+  background: #222;
+  color: #ff4655;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+  border: 1px solid #333;
+}
+
+.upload-btn:hover {
+  background: #ff4655;
+  color: white;
+}
+
+.upload-btn input {
+  display: none;
+}
+
+.no-result {
+  text-align: center;
+  color: #bbb;
+  padding: 40px;
+  font-size: 18px;
+}
+
+/* --------------------
+   MEJORAS RESPONSIVAS
+--------------------- */
+@media (max-width: 768px) {
+  .hero h2 {
+    font-size: 32px;
+  }
+  
+  .hero p {
+    font-size: 16px;
+  }
+  
+  .nav-links {
+    gap: 15px;
+  }
+  
+  .perfil-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .perfil-stats {
+    gap: 15px;
+  }
+  
+  .stat-box {
+    width: 120px;
+    padding: 15px;
+  }
+  
+  .upload-grid {
+    flex-direction: column;
+  }
+  
+  .explorar-container,
+  .featured {
+    padding: 20px;
+  }
+  
+  .busqueda-input {
+    flex-direction: column;
+  }
+  
+  .categorias-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
 }
